@@ -1,0 +1,118 @@
+
+
+<html>
+  <head>
+    <title>Welcome</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+
+  </head>
+  <body>
+
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+    <header class="navbar navbar-fixed-top navbar-default">
+        <h1><%= link_to "discharge.md", '#', id: "logo" %></h1>
+
+
+      <div class="container">
+        <nav>
+          <ul class="nav navbar-nav navbar-right">
+            <li><%= link_to "Home",   '#' %></li>
+            <li><%= link_to "Help",   '#' %></li>
+            <li><%= link_to "Contact", '#' %></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+
+
+
+    <div class="container">
+
+<div class="page-header">
+  <h1>welcome to discharge.md</h1>
+  <h2><small>sorry, only german for now.</small></h2>
+</div>
+
+  <div class="input-group">
+  <span class="input-group-addon" id="basic-addon1"></span>
+  <input type="text" class="form-control" placeholder="Patient Name" aria-describedby="basic-addon1">
+  </div>
+
+    Enter the discharge instructions you wish to translate here:
+    <br><br>
+    <input 
+
+    type="text" class="form-control" aria-describedby="basic-addon1"
+
+
+    value="Replace this text." id="sourceText">
+
+  </input>
+    
+
+    <br>
+    <br>
+
+    <button 
+
+    class="btn btn-default" type="button" 
+    onclick="translateFunction();">Translate</button>
+    <br>
+    <br>
+
+    <script>
+    function translateFunction()
+      {
+
+      var newScript = document.createElement('script');
+      newScript.type = 'text/javascript';
+      var sourceText = escape(document.getElementById("sourceText").value);
+      // WARNING: be aware that YOUR-API-KEY inside html is viewable by all your users.
+      // Restrict your key to designated domains or use a proxy to hide your key
+      // to avoid misusage by other party.
+      var source = 'https://www.googleapis.com/language/translate/v2?key=' + ENV['GOOGLE_API_KEY'] + '&source=en&target=de&callback=translateText&q=' + sourceText;
+      newScript.src = source;
+
+      // When we add this script to the head, the request is sent off.
+      document.getElementsByTagName('head')[0].appendChild(newScript);
+      }
+    </script>
+
+    <div id="translation"></div>
+
+    <script>
+      function translateText(response) {
+        document.getElementById("translation").innerHTML += "Here's your translation:<br><br>" + response.data.translations[0].translatedText + "<br><br>";
+      }
+    </script>
+  </div>
+
+    <div class="col-lg-6">
+    <div class="input-group">
+
+      <span class="input-group-btn">
+
+      </span>
+    </div><!-- /input-group -->
+  </div>
+
+
+  <div>
+    <a href="#" class="btn btn-lg btn-primary">Sign up now!</a>
+  </div>
+
+<br><br>
+
+<div class="panel panel-default">
+  <div class="panel-body">
+    <img src="solid-blue.png" height=64 width=248>
+  </div>
+</div>
+
+
+  </body>
+</html>
